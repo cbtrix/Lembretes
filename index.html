@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Meus Lembretes</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;1,9..144,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="container">
+
+  <header>
+    <h1>Meus <span>Lembretes</span> 🔔</h1>
+    <p>Organiza sua vida, um lembrete de cada vez</p>
+  </header>
+
+  <!-- Barra de permissão de notificações -->
+  <div id="notif-bar" class="notif-bar">
+    <span>🔔 Ative as notificações para receber alertas!</span>
+    <button onclick="requestNotif()">Ativar</button>
+  </div>
+
+  <!-- Contadores -->
+  <div class="stats">
+    <div class="stat-chip">
+      <div class="num" id="stat-total">0</div>
+      <div class="lbl">Total</div>
+    </div>
+    <div class="stat-chip">
+      <div class="num" id="stat-pending">0</div>
+      <div class="lbl">Pendentes</div>
+    </div>
+    <div class="stat-chip">
+      <div class="num" id="stat-done">0</div>
+      <div class="lbl">Concluídos</div>
+    </div>
+  </div>
+
+  <!-- Formulário -->
+  <div class="form-card">
+    <h2>+ Novo lembrete</h2>
+
+    <div class="form-group">
+      <label>Título *</label>
+      <input type="text" id="inp-title" placeholder="Ex: Pagar conta de água…" maxlength="80" />
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label>Data e hora</label>
+        <input type="datetime-local" id="inp-datetime" />
+      </div>
+      <div class="form-group">
+        <label>Prioridade</label>
+        <select id="inp-priority">
+          <option value="baixa">🟢 Baixa</option>
+          <option value="media" selected>🟡 Média</option>
+          <option value="alta">🔴 Alta</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Observação (opcional)</label>
+      <textarea id="inp-note" placeholder="Detalhes, link, contato…"></textarea>
+    </div>
+
+    <button class="btn-add" onclick="addReminder()">Adicionar Lembrete</button>
+  </div>
+
+  <!-- Filtros -->
+  <div class="filters">
+    <button class="filter-btn active" onclick="setFilter('all', this)">Todos</button>
+    <button class="filter-btn" onclick="setFilter('pending', this)">Pendentes</button>
+    <button class="filter-btn" onclick="setFilter('done', this)">Concluídos</button>
+    <button class="filter-btn" onclick="setFilter('alta', this)">🔴 Alta</button>
+    <button class="filter-btn" onclick="setFilter('overdue', this)">⚠️ Atrasados</button>
+  </div>
+
+  <div class="section-label">Seus lembretes</div>
+  <div id="reminder-list"></div>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

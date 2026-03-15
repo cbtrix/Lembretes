@@ -1,0 +1,475 @@
+/* =============================================
+   VARIÁVEIS GLOBAIS (cores, sombras, etc.)
+   ============================================= */
+:root {
+  --bg: #f5f0e8;
+  --card: #fffdf8;
+  --accent: #c96c3a;
+  --accent2: #e8a87c;
+  --text: #2a1f14;
+  --muted: #8a7060;
+  --border: #e0d8cc;
+  --done: #a8c4a2;
+  --urgent: #d4574a;
+  --shadow: 0 4px 24px rgba(42,31,20,0.09);
+}
+
+/* =============================================
+   RESET E BASE
+   ============================================= */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  padding: 0;
+}
+
+/* Textura de fundo com SVG inline */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23c96c3a' fill-opacity='0.04'%3E%3Ccircle cx='7' cy='7' r='1'/%3E%3Ccircle cx='27' cy='7' r='1'/%3E%3Ccircle cx='47' cy='7' r='1'/%3E%3Ccircle cx='7' cy='27' r='1'/%3E%3Ccircle cx='27' cy='27' r='1'/%3E%3Ccircle cx='47' cy='27' r='1'/%3E%3Ccircle cx='7' cy='47' r='1'/%3E%3Ccircle cx='27' cy='47' r='1'/%3E%3Ccircle cx='47' cy='47' r='1'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* =============================================
+   LAYOUT PRINCIPAL
+   ============================================= */
+.container {
+  position: relative;
+  z-index: 1;
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 40px 20px 80px;
+}
+
+/* =============================================
+   CABEÇALHO
+   ============================================= */
+header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+header h1 {
+  font-family: 'Fraunces', serif;
+  font-size: 2.6rem;
+  font-weight: 600;
+  color: var(--text);
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+
+header h1 span {
+  color: var(--accent);
+}
+
+header p {
+  font-size: 0.9rem;
+  color: var(--muted);
+  margin-top: 6px;
+  font-weight: 300;
+}
+
+/* =============================================
+   BARRA DE NOTIFICAÇÕES
+   ============================================= */
+#notif-bar {
+  display: none; /* mostrado via JS se necessário */
+  background: linear-gradient(135deg, #fdf0e6, #fde8d8);
+  border: 1px solid var(--accent2);
+  border-radius: 12px;
+  padding: 12px 16px;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+  font-size: 0.85rem;
+  color: var(--accent);
+}
+
+#notif-bar button {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  transition: background 0.2s;
+}
+
+#notif-bar button:hover {
+  background: #b05a2e;
+}
+
+/* =============================================
+   CONTADORES (STATS)
+   ============================================= */
+.stats {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 28px;
+}
+
+.stat-chip {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 10px 16px;
+  text-align: center;
+  flex: 1;
+}
+
+.stat-chip .num {
+  font-family: 'Fraunces', serif;
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: var(--accent);
+  line-height: 1;
+}
+
+.stat-chip .lbl {
+  font-size: 0.72rem;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  margin-top: 3px;
+}
+
+/* =============================================
+   FORMULÁRIO
+   ============================================= */
+.form-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 28px;
+  box-shadow: var(--shadow);
+  margin-bottom: 32px;
+}
+
+.form-card h2 {
+  font-family: 'Fraunces', serif;
+  font-size: 1.1rem;
+  font-weight: 300;
+  font-style: italic;
+  color: var(--muted);
+  margin-bottom: 20px;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 14px;
+}
+
+.form-group:last-child {
+  margin-bottom: 0;
+}
+
+label {
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+input[type="text"],
+input[type="datetime-local"],
+select,
+textarea {
+  background: var(--bg);
+  border: 1.5px solid var(--border);
+  border-radius: 10px;
+  padding: 11px 14px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.92rem;
+  color: var(--text);
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  width: 100%;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(201,108,58,0.12);
+}
+
+textarea {
+  resize: vertical;
+  min-height: 72px;
+}
+
+.btn-add {
+  width: 100%;
+  padding: 13px;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+  margin-top: 4px;
+  letter-spacing: 0.01em;
+}
+
+.btn-add:hover {
+  background: #b05a2e;
+  transform: translateY(-1px);
+}
+
+.btn-add:active {
+  transform: translateY(0);
+}
+
+/* =============================================
+   FILTROS
+   ============================================= */
+.filters {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.filter-btn {
+  padding: 7px 16px;
+  border-radius: 30px;
+  border: 1.5px solid var(--border);
+  background: var(--card);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--muted);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.filter-btn.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+.filter-btn:hover:not(.active) {
+  border-color: var(--accent2);
+  color: var(--accent);
+}
+
+/* =============================================
+   LABEL DE SEÇÃO
+   ============================================= */
+.section-label {
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 14px;
+}
+
+/* =============================================
+   LISTA DE LEMBRETES
+   ============================================= */
+#reminder-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Card individual */
+.reminder-item {
+  background: var(--card);
+  border: 1.5px solid var(--border);
+  border-radius: 16px;
+  padding: 18px 20px;
+  box-shadow: 0 2px 8px rgba(42,31,20,0.05);
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  transition: box-shadow 0.2s, transform 0.2s;
+  animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.reminder-item:hover {
+  box-shadow: var(--shadow);
+  transform: translateY(-2px);
+}
+
+/* Estado: concluído */
+.reminder-item.done {
+  opacity: 0.6;
+}
+
+.reminder-item.done .reminder-title {
+  text-decoration: line-through;
+  color: var(--muted);
+}
+
+/* Barra colorida de prioridade (lado esquerdo) */
+.priority-bar {
+  width: 4px;
+  min-height: 50px;
+  border-radius: 4px;
+  flex-shrink: 0;
+  align-self: stretch;
+}
+
+.priority-bar.alta  { background: var(--urgent); }
+.priority-bar.media { background: var(--accent2); }
+.priority-bar.baixa { background: var(--done); }
+
+/* Conteúdo do card */
+.reminder-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.reminder-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.reminder-title {
+  font-family: 'Fraunces', serif;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--text);
+  word-break: break-word;
+}
+
+/* Badge de prioridade */
+.priority-badge {
+  font-size: 0.7rem;
+  font-weight: 500;
+  padding: 2px 8px;
+  border-radius: 20px;
+  flex-shrink: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.priority-badge.alta  { background: #fde8e6; color: var(--urgent); }
+.priority-badge.media { background: #fdf0e6; color: #c47a30; }
+.priority-badge.baixa { background: #eaf4e9; color: #5a8a54; }
+
+/* Data e hora */
+.reminder-datetime {
+  font-size: 0.8rem;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+
+.reminder-datetime.overdue {
+  color: var(--urgent);
+  font-weight: 500;
+}
+
+/* Observação */
+.reminder-note {
+  font-size: 0.85rem;
+  color: var(--muted);
+  line-height: 1.5;
+  margin-top: 4px;
+  font-style: italic;
+}
+
+/* Botões de ação (concluir / deletar) */
+.reminder-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.btn-icon {
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  border: 1.5px solid var(--border);
+  background: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  transition: all 0.15s;
+  color: var(--muted);
+}
+
+.btn-icon:hover {
+  background: var(--bg);
+  border-color: var(--accent2);
+  color: var(--accent);
+}
+
+.btn-icon.done-btn:hover {
+  border-color: var(--done);
+  color: #5a8a54;
+  background: #eaf4e9;
+}
+
+.btn-icon.del-btn:hover {
+  border-color: var(--urgent);
+  color: var(--urgent);
+  background: #fde8e6;
+}
+
+/* =============================================
+   ESTADO VAZIO
+   ============================================= */
+.empty-state {
+  text-align: center;
+  padding: 48px 20px;
+  color: var(--muted);
+}
+
+.empty-state .emoji {
+  font-size: 2.5rem;
+  margin-bottom: 12px;
+}
+
+.empty-state p {
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-size: 1rem;
+}
+
+/* =============================================
+   RESPONSIVO (telas pequenas)
+   ============================================= */
+@media (max-width: 500px) {
+  .form-row { grid-template-columns: 1fr; }
+  header h1 { font-size: 2rem; }
+} 
